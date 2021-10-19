@@ -3,6 +3,7 @@
 
 #include "cursor.h"
 #include "funs.h"
+#include "waycreator.h"
 
 using namespace std;
 
@@ -28,34 +29,14 @@ int main(int argc, char *argv[])
     ePos.x = 4;
     ePos.y = 4;
 
-    // creating current cursor
-    Cursor curPos;
-    curPos = sPos;
-
-    // vector of steps
-    vector<Cursor> way;
-    way.push_back(curPos);
-
-    // searching way from start to end
-    while (!isSamePos(curPos,ePos)) {
-        // basic movement
-        if (curPos.x < ePos.x) {
-            curPos.x++;
-        } else if (curPos.x > ePos.x) {
-            curPos.x--;
-        } else if (curPos.y < ePos.y) {
-            curPos.y++;
-        } else if (curPos.y > ePos.y) {
-            curPos.y--;
-        }
-        way.push_back(curPos);
-    }
+    // the way creator
+    WayCreator way(SIZE,ePos,sPos);
 
     // write way in a maze
     int cou;
     cou = 1;
-    for (int i = 0; i < way.size(); i++) {
-        maze[way[i].x][way[i].y] = cou;
+    for (int i = 0; i < way.getWay().size(); i++) {
+        maze[way.getWay()[i].x][way.getWay()[i].y] = cou;
         cou++;
     }
     int maxValue = cou;

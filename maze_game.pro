@@ -8,9 +8,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    funs.cpp
+    funs.cpp \
+    waycreator.cpp
 
 HEADERS += \
     cursor.h \
-    funs.h
+    funs.h \
+    waycreator.h
 
