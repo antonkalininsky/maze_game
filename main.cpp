@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     // creating variables
-    const int SIZE = 5;
+    const int SIZE = 3;
     int maze[SIZE][SIZE];
 
     // init
@@ -26,8 +26,8 @@ int main(int argc, char *argv[])
     Cursor sPos, ePos;
     sPos.x = 0;
     sPos.y = 0;
-    ePos.x = 4;
-    ePos.y = 4;
+    ePos.x = SIZE-1;
+    ePos.y = SIZE-1;
 
     // the way creator
     WayCreator way(SIZE,ePos,sPos);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     }
     int maxValue = cou;
 
-
+/*
     // write disturbances
     for (int i = 0; i < SIZE; i++) {
         for (int l = 0; l < SIZE; l++) {
@@ -50,14 +50,13 @@ int main(int argc, char *argv[])
             }
         }
     }
-
+*/
 
     // showing
     for (int i = 0; i < SIZE; i++) {
-        cout << "   ";
         for (int l = 0; l < SIZE; l++) {
             cout << maze[i][l];
-            cout << "   ";
+            cout << "\t";
         }
         cout << endl;
     }

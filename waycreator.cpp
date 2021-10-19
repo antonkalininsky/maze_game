@@ -1,12 +1,16 @@
 #include "waycreator.h"
 
 #include <cstdlib>
+#include <time.h>
 #include "funs.h"
 
 WayCreator::WayCreator(int sz, Cursor ePos, Cursor sPos){
     // variables
     int des;
-    Cursor desPos;
+    Cursor desPos,probPos;
+
+    // randomizing
+    srand(time(NULL));
 
     // init conditions and restart position
     restartSearch:
@@ -22,25 +26,26 @@ WayCreator::WayCreator(int sz, Cursor ePos, Cursor sPos){
         } while(isChecked(des));
 
         // do probable step
+        probPos = desPos;
         switch (des) {
         case 0:
-            desPos.y--;
+            probPos.y--;
             break;
         case 1:
-            desPos.x++;
+            probPos.x++;
             break;
         case 2:
-            desPos.y++;
+            probPos.y++;
             break;
         case 3:
-            desPos.x--;
+            probPos.x--;
             break;
         default:
             break;
         }
 
         // check probable step for crossings
-        if (isCrossing(desPos, sz)) {
+        if (isCrossing(probPos, sz)) {
             // add for checked ways
             checkedOpt.push_back(des);
             // check for aviliable ways
@@ -50,10 +55,11 @@ WayCreator::WayCreator(int sz, Cursor ePos, Cursor sPos){
             }
         } else {
             // accept step
-            way.push_back(desPos);
+            desPos = probPos;
+            way.push_back(probPos);
             checkedOpt.clear();
             // check for final step
-            if (isSamePos(desPos,ePos)) {
+            if (isSamePos(probPos,ePos)) {
                 break;
             }
         }
@@ -81,14 +87,14 @@ bool WayCreator::isCrossing(Cursor C, int sz) {
     // check borders cross
     if (C.x < 0 ||
         C.y < 0 ||
-        C.x == sz ||
-        C.y == sz) {
+        C.x >= sz ||
+        C.y >= sz) {
         return true;
     }
     // check selfcross
     for (int i = 0; i < way.size(); i++) {
         if (C.x == way[i].x &&
-                C.x == way[i].x) {
+                C.y == way[i].y) {
             return true;
         }
     }
