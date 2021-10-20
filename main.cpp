@@ -1,65 +1,62 @@
-#include <QCoreApplication>
+//#include <QCoreApplication>
+#include <QApplication>
 #include "iostream"
-
 #include "cursor.h"
 #include "funs.h"
 #include "waycreator.h"
 
-using namespace std;
+#include "tile.h"
+
+#include "game.h"
+#include "board.h"
+
+#include <QtWidgets>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QMainWindow>
+
+//using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    // creating variables
-    const int SIZE = 3;
-    int maze[SIZE][SIZE];
+    Game game;
+    Board *board = new Board(50, 5);
 
-    // init
-    for (int i = 0; i < SIZE; i++) {
-        for (int l = 0; l < SIZE; l++) {
-            maze[i][l] = 0;
-        }
-    }
 
-    // start and end positions
-    Cursor sPos, ePos;
-    sPos.x = 0;
-    sPos.y = 0;
-    ePos.x = SIZE-1;
-    ePos.y = SIZE-1;
+    // the window
+    QMainWindow window;
+    window.resize(800,600);
+    window.setFixedSize(800,600);
 
-    // the way creator
-    WayCreator way(SIZE,ePos,sPos);
+    /*
+    // the tile
+    Tile *A = new Tile();
+    A->setRect(0,0,50,50);
 
-    // write way in a maze
-    int cou;
-    cou = 1;
-    for (int i = 0; i < way.getWay().size(); i++) {
-        maze[way.getWay()[i].x][way.getWay()[i].y] = cou;
-        cou++;
-    }
-    int maxValue = cou;
+    // scene
+    QGraphicsScene * scene = new QGraphicsScene();
+    scene->addItem(A);
+    A->setFlag(QGraphicsItem::ItemIsFocusable);
+    A->setFocus();
+    */
 
-/*
-    // write disturbances
-    for (int i = 0; i < SIZE; i++) {
-        for (int l = 0; l < SIZE; l++) {
-            if (maze[i][l] == 0) {
-                maze[i][l] = rand() % maxValue + 1;
-            }
-        }
-    }
-*/
+    // view
+    QGraphicsView * view = new QGraphicsView(board);
 
-    // showing
-    for (int i = 0; i < SIZE; i++) {
-        for (int l = 0; l < SIZE; l++) {
-            cout << maze[i][l];
-            cout << "\t";
-        }
-        cout << endl;
-    }
+    // windiw continue
+    window.setCentralWidget(view);
+    window.show();
+
+    /*
+
+    QWidget window;
+    window.resize(800, 600);
+    window.show();
+    */
+    //window
+
 
     return a.exec();
 }

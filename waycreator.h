@@ -8,7 +8,7 @@
 class WayCreator
 {
 public:
-    WayCreator(int sz, Cursor ePos, Cursor sPos);
+    WayCreator(Cursor sPos, Cursor ePos, int sz);
 
     std::vector<Cursor> getWay() const;
     void setWay(const std::vector<Cursor> &value);

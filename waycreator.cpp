@@ -4,7 +4,7 @@
 #include <time.h>
 #include "funs.h"
 
-WayCreator::WayCreator(int sz, Cursor ePos, Cursor sPos){
+WayCreator::WayCreator(Cursor sPos, Cursor ePos, int sz){
     // variables
     int des;
     Cursor desPos,probPos;

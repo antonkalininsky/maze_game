@@ -3,9 +3,9 @@
 
 struct Cursor {
     int x,y;
-    Cursor() {
-        x = 0;
-        y = 0;
+    Cursor(int a = 0, int b = 0) {
+        x = a;
+        y = b;
     }
 };
 
