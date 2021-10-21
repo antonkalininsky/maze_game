@@ -5,7 +5,7 @@
 
 class Board : public QGraphicsScene {
 public:
-    Board(int rectSz, int mapSz);
+    Board(int rectSz, int mapSz, int **map);
 };
 
 #endif // BOARD_H

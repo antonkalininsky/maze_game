@@ -3,7 +3,7 @@ QT += widgets
 QT += gui
 
 TARGET = maze_game
-CONFIG += gui
+CONFIG += gui C++11
 CONFIG -= console
 CONFIG -= app_bundle
 

@@ -2,9 +2,9 @@
 #include "waycreator.h"
 #include <cstdlib>
 
-Game::Game() {
-    Cursor A(0, 0),B(4, 4);
-    initGame(A, B, 5);
+Game::Game(int sz) {
+    Cursor A(0, 0),B(sz-1, sz-1);
+    initGame(A, B, sz);
 }
 
 void Game::initGame(Cursor startPos, Cursor endPos, int mapSz) {

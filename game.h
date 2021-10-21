@@ -5,7 +5,7 @@
 
 class Game {
 public:
-    Game();
+    Game(int sz);
     void initGame(Cursor startPos, Cursor endPos, int mapSz);
     bool doStep(Cursor A);
 
