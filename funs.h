@@ -1,9 +1,9 @@
 #ifndef FUNS
 #define FUNS
 
-#include <cursor.h>
+#include <position.h>
 
-bool isSamePos (Cursor C1, Cursor C2);
+bool isSamePos (Position C1, Position C2);
 
 #endif // FUNS
 

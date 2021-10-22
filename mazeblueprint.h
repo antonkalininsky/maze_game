@@ -2,7 +2,7 @@
 #define MAZEBLUEPRINT_H
 
 #include <vector>
-#include "cursor.h"
+#include "position.h"
 
 
 class MazeBlueprint

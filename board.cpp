@@ -4,7 +4,7 @@
 #include <QString>
 #include <QPen>
 #include <QGraphicsLineItem>
-#include "cursor.h"
+#include "position.h"
 #include <vector>
 #include <QDebug>
 
@@ -45,14 +45,15 @@ Board::Board(int rectSz, int mapSz, int **map) {
         }
     }
 
-    Cursor sPos(0,0),ePos,bufPos;
+    Position sPos(0,0),ePos,bufPos;
 
-    std::vector<Cursor> checkQueue;
+    std::vector<Position> checkQueue;
 
     checkQueue.push_back(sPos);
 
     while (checkQueue.size() > 0) {
         // search 4 smallest unit
+        /*
         int smol = 0;
         repeat:
         for (int i = 0; i < checkQueue.size(); i++) {
@@ -61,11 +62,12 @@ Board::Board(int rectSz, int mapSz, int **map) {
                 goto repeat;
             }
         }
+        */
         // pop position 4 checking
-        //bufPos = checkQueue.back();
-        //checkQueue.pop_back();
-        bufPos = checkQueue.at(smol);
-        checkQueue.erase(checkQueue.begin() + smol);
+        bufPos = checkQueue.back();
+        checkQueue.pop_back();
+        //bufPos = checkQueue.at(smol);
+        //checkQueue.erase(checkQueue.begin() + smol);
         isChecked[bufPos.x][bufPos.y] = true;
         // checking
         for (int i = 0; i < 4; i++) {
@@ -81,22 +83,22 @@ Board::Board(int rectSz, int mapSz, int **map) {
             if ((bufPos.x + sumX >= 0) && (bufPos.x + sumX < mapSz) && (bufPos.y + sumY >= 0) && (bufPos.y + sumY < mapSz) &&
                     !isChecked[bufPos.x + sumX][bufPos.y + sumY]) {
                 // add neighbor for checking
-                checkQueue.push_back(Cursor(bufPos.x  + sumX, bufPos.y + sumY));
+                checkQueue.push_back(Position(bufPos.x  + sumX, bufPos.y + sumY));
                 // is line needed?
                 //qDebug() << map[bufPos.x][bufPos.y];
                 //qDebug() << map[bufPos.x + sumX][bufPos.y + sumY];
-                if (map[bufPos.x][bufPos.y]+1 != map[bufPos.x + sumX][bufPos.y + sumY]) { // рисуем если новое значение меньше или равно старому
+                if (map[bufPos.x][bufPos.y] + 1 != map[bufPos.x + sumX][bufPos.y + sumY]) {
                     QGraphicsLineItem* line = new QGraphicsLineItem();
                     line->setPen(pen2);
                     switch (i) {
                     case 0:
-                        line->setLine(bufPos.x * rectSz, bufPos.y * rectSz, (bufPos.x + 1) * rectSz, bufPos.y * rectSz); // потерян первый столбец!!
+                        line->setLine(bufPos.x * rectSz, bufPos.y * rectSz, (bufPos.x + 1) * rectSz, bufPos.y * rectSz);
                         break;
                     case 1:
-                        line->setLine((bufPos.x + 1) * rectSz, bufPos.y * rectSz, (bufPos.x + 1) * rectSz, (bufPos.y + 1) * rectSz); // вообще рандом
+                        line->setLine((bufPos.x + 1) * rectSz, bufPos.y * rectSz, (bufPos.x + 1) * rectSz, (bufPos.y + 1) * rectSz);
                         break;
                     case 2:
-                        line->setLine(bufPos.x * rectSz, (bufPos.y + 1) * rectSz, (bufPos.x + 1) * rectSz, (bufPos.y + 1) * rectSz); // только первая строка лол реверсивно
+                        line->setLine(bufPos.x * rectSz, (bufPos.y + 1) * rectSz, (bufPos.x + 1) * rectSz, (bufPos.y + 1) * rectSz);
                         break;
                     case 3:
                         line->setLine(bufPos.x * rectSz, bufPos.y * rectSz, bufPos.x * rectSz, (bufPos.y + 1) * rectSz);

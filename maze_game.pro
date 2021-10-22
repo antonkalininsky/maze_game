@@ -18,10 +18,10 @@ SOURCES += main.cpp \
     board.cpp
 
 HEADERS += \
-    cursor.h \
     funs.h \
     waycreator.h \
     tile.h \
     mazeblueprint.h \
     game.h \
-    board.h
+    board.h \
+    position.h

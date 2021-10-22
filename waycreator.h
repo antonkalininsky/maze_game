@@ -1,24 +1,25 @@
 #ifndef WAYCREATOR_H
 #define WAYCREATOR_H
 
-#include "cursor.h"
+#include "position.h"
 #include <vector>
 
 
 class WayCreator
 {
 public:
-    WayCreator(Cursor sPos, Cursor ePos, int sz);
+    WayCreator(Position sPos, Position ePos, int sz, bool isEndable);
 
-    std::vector<Cursor> getWay() const;
-    void setWay(const std::vector<Cursor> &value);
+    std::vector<Position> getWay() const;
+    void setWay(const std::vector<Position> &value);
 
 private:
-    std::vector<Cursor> way;
+    std::vector<Position> way;
     std::vector<int> checkedOpt;
 
     bool isChecked(int val);
-    bool isCrossing(Cursor C, int sz);
+    bool isCrossing(Position C, int sz);
+
 };
 
 #endif // WAYCREATOR_H

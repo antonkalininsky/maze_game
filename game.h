@@ -1,20 +1,22 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "cursor.h"
+#include "position.h"
 
 class Game {
 public:
     Game(int sz);
-    void initGame(Cursor startPos, Cursor endPos, int mapSz);
-    bool doStep(Cursor A);
+    void initGame(Position startPos, Position endPos, int mapSz);
+    bool doStep(Position A);
 
     int **getMap() const;
     void setMap(int **value);
 
 private:
-    Cursor sPos,ePos,cPos;
+    Position sPos,ePos,cPos;
     int** map;
+    int mapSize;
+    void createDisturbances();
 };
 
 #endif // GAME_H

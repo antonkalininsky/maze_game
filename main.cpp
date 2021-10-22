@@ -1,7 +1,7 @@
 //#include <QCoreApplication>
 #include <QApplication>
 #include "iostream"
-#include "cursor.h"
+#include "position.h"
 #include "funs.h"
 #include "waycreator.h"
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    int mapSize = 8;
+    int mapSize = 15;
 
     Game game(mapSize);
 

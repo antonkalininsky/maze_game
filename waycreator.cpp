@@ -4,10 +4,9 @@
 #include <time.h>
 #include "funs.h"
 
-WayCreator::WayCreator(Cursor sPos, Cursor ePos, int sz){
-    // variables
+WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
     int des;
-    Cursor desPos,probPos;
+    Position desPos,probPos;
 
     // randomizing
     srand(time(NULL));
@@ -50,8 +49,12 @@ WayCreator::WayCreator(Cursor sPos, Cursor ePos, int sz){
             checkedOpt.push_back(des);
             // check for aviliable ways
             if (checkedOpt.size() == 4) {
-                // start all over
-                goto restartSearch;
+                if (isEndable) {
+                    // start all over
+                    goto restartSearch;
+                } else {
+                    return;
+                }
             }
         } else {
             // accept step
@@ -64,13 +67,14 @@ WayCreator::WayCreator(Cursor sPos, Cursor ePos, int sz){
             }
         }
     }
+    return;
 }
 
-std::vector<Cursor> WayCreator::getWay() const{
+std::vector<Position> WayCreator::getWay() const{
     return way;
 }
 
-void WayCreator::setWay(const std::vector<Cursor> &value){
+void WayCreator::setWay(const std::vector<Position> &value){
     way = value;
 }
 
@@ -83,7 +87,7 @@ bool WayCreator::isChecked(int val) {
     return false;
 }
 
-bool WayCreator::isCrossing(Cursor C, int sz) {
+bool WayCreator::isCrossing(Position C, int sz) {
     // check borders cross
     if (C.x < 0 ||
         C.y < 0 ||
