@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    int mapSize = 10;
+    int mapSize = 8;
 
     Game game(mapSize);
 
