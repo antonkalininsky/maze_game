@@ -19,6 +19,20 @@ Board::Board(int rectSz, int mapSz, int **map) {
     pen2.setStyle(Qt::SolidLine);
     pen2.setWidth(3);
 
+    // start n finish
+    QString str = "START";
+    QGraphicsTextItem* num = new QGraphicsTextItem();
+    num->setPlainText(str);
+    num->setPos(0,0);
+    addItem(num);
+    str = "END";
+    num = new QGraphicsTextItem();
+    num->setPlainText(str);
+    num->setPos(rectSz*(mapSz-1), rectSz*(mapSz-1));
+    addItem(num);
+
+
+    /*
     // draw squares n numbers
     for (int i = 0; i < mapSz; i++) {
         for (int l = 0; l < mapSz; l++) {
@@ -33,6 +47,7 @@ Board::Board(int rectSz, int mapSz, int **map) {
             addItem(num);
         }
     }
+    */
 
     // borders
     QGraphicsLineItem* line = new QGraphicsLineItem();
@@ -52,33 +67,18 @@ Board::Board(int rectSz, int mapSz, int **map) {
     line->setPen(pen2);
     addItem(line);
 
+
     // draw maze
     bool isChecked[mapSz][mapSz];
-
     for (int i = 0; i < mapSz; i++) {
         for (int l = 0; l < mapSz; l++) {
             isChecked[i][l] = false;
         }
     }
-
     Position sPos(0,0),ePos,bufPos;
-
     std::vector<Position> checkQueue;
-
     checkQueue.push_back(sPos);
-
     while (checkQueue.size() > 0) {
-        // search 4 smallest unit
-        /*
-        int smol = 0;
-        repeat:
-        for (int i = 0; i < checkQueue.size(); i++) {
-            if (map[checkQueue[smol].x][checkQueue[smol].y] > map[checkQueue[i].x][checkQueue[i].y]) {
-                smol = i;
-                goto repeat;
-            }
-        }
-        */
         // pop position 4 checking
         bufPos = checkQueue.back();
         checkQueue.pop_back();
@@ -101,9 +101,8 @@ Board::Board(int rectSz, int mapSz, int **map) {
                 // add neighbor for checking
                 checkQueue.push_back(Position(bufPos.x  + sumX, bufPos.y + sumY));
                 // is line needed?
-                //qDebug() << map[bufPos.x][bufPos.y];
-                //qDebug() << map[bufPos.x + sumX][bufPos.y + sumY];
-                if (map[bufPos.x][bufPos.y] + 1 != map[bufPos.x + sumX][bufPos.y + sumY]) {
+                if (map[bufPos.x][bufPos.y] - map[bufPos.x + sumX][bufPos.y + sumY] != 1 &&
+                        map[bufPos.x][bufPos.y] - map[bufPos.x + sumX][bufPos.y + sumY] != -1) {
                     QGraphicsLineItem* line = new QGraphicsLineItem();
                     line->setPen(pen2);
                     switch (i) {

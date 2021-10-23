@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     tile.cpp \
     mazeblueprint.cpp \
     game.cpp \
-    board.cpp
+    board.cpp \
+    mapcreator.cpp
 
 HEADERS += \
     funs.h \
@@ -24,4 +25,5 @@ HEADERS += \
     mazeblueprint.h \
     game.h \
     board.h \
-    position.h
+    position.h \
+    mapcreator.h

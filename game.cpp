@@ -1,5 +1,5 @@
 #include "game.h"
-#include "waycreator.h"
+#include "mapcreator.h"
 #include <cstdlib>
 #include <vector>
 #include "position.h"
@@ -22,34 +22,10 @@ void Game::initGame(Position startPos, Position endPos, int mapSz) {
         map[i] = new int[mapSz];
     }
 
-    // init map
-    for (int i = 0; i < mapSz; i++) {
-        for (int l = 0; l < mapSz; l++) {
-            map[i][l] = 0;
-        }
-    }
+    // create n save map
+    MapCreator theMap(startPos, endPos, mapSz);
+    map = theMap.getMap();
 
-    // create random way
-    WayCreator way(startPos, endPos, mapSz, true);
-
-    //place random way on map
-    int cou;
-    cou = 1;
-    for (int i = 0; i < way.getWay().size(); i++) {
-        map[way.getWay()[i].x][way.getWay()[i].y] = cou;
-        cou++;
-    }
-    int maxValue = cou;
-
-    //place disturbances
-    //createDisturbances();
-    for (int i = 0; i < mapSz; i++) {
-        for (int l = 0; l < mapSz; l++) {
-            if (map[i][l] == 0) {
-                map[i][l] = rand() % maxValue + 1;
-            }
-        }
-    }
 }
 
 bool Game::doStep(Position A) {

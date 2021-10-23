@@ -1,12 +1,13 @@
 #include "waycreator.h"
-
 #include <cstdlib>
 #include <time.h>
 #include "funs.h"
 
-WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
+WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable, int **map){
+    // vars
     int des;
     Position desPos,probPos;
+    bool isRnd;
 
     // randomizing
     srand(time(NULL));
@@ -17,6 +18,9 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
     way.clear();
     way.push_back(desPos);
     checkedOpt.clear();
+    isRnd = true;
+
+
 
     while (true) {
         // search for random and unused option
@@ -28,23 +32,47 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
         probPos = desPos;
         switch (des) {
         case 0:
-            probPos.y--;
+            if (isRnd) {
+                probPos.y--;
+            } else if (probPos.y > ePos.y) {
+                probPos.y--;
+            } else {
+                probPos.y = -1;
+            }
             break;
         case 1:
-            probPos.x++;
+            if (isRnd) {
+                probPos.x++;
+            } else if (probPos.x < ePos.x) {
+                probPos.x++;
+            } else {
+                probPos.x = -1;
+            }
             break;
         case 2:
-            probPos.y++;
+            if (isRnd) {
+                probPos.y++;
+            } else if (probPos.y < ePos.y) {
+                probPos.y++;
+            } else {
+                probPos.y = -1;
+            }
             break;
         case 3:
-            probPos.x--;
+            if (isRnd) {
+                probPos.x--;
+            } else if (probPos.x > ePos.x) {
+                probPos.x--;
+            } else {
+                probPos.y = -1;
+            }
             break;
         default:
             break;
         }
 
         // check probable step for crossings
-        if (isCrossing(probPos, sz)) {
+        if (isCrossing(probPos, sz, map)) {
             // add for checked ways
             checkedOpt.push_back(des);
             // check for aviliable ways
@@ -53,6 +81,7 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
                     // start all over
                     goto restartSearch;
                 } else {
+                    way.erase(way.begin());
                     return;
                 }
             }
@@ -64,6 +93,10 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable){
             // check for final step
             if (isSamePos(probPos,ePos)) {
                 break;
+            }
+            // switch rnd mode
+            if (isEndable) {
+                isRnd = !isRnd;
             }
         }
     }
@@ -87,7 +120,7 @@ bool WayCreator::isChecked(int val) {
     return false;
 }
 
-bool WayCreator::isCrossing(Position C, int sz) {
+bool WayCreator::isCrossing(Position C, int sz, int **map) {
     // check borders cross
     if (C.x < 0 ||
         C.y < 0 ||
@@ -101,6 +134,10 @@ bool WayCreator::isCrossing(Position C, int sz) {
                 C.y == way[i].y) {
             return true;
         }
+    }
+    // check map cross
+    if (map[C.x][C.y] != 0) {
+        return true;
     }
     return false;
 }

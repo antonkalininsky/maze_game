@@ -8,7 +8,7 @@
 class WayCreator
 {
 public:
-    WayCreator(Position sPos, Position ePos, int sz, bool isEndable);
+    WayCreator(Position sPos, Position ePos, int sz, bool isEndable, int **map);
 
     std::vector<Position> getWay() const;
     void setWay(const std::vector<Position> &value);
@@ -18,7 +18,7 @@ private:
     std::vector<int> checkedOpt;
 
     bool isChecked(int val);
-    bool isCrossing(Position C, int sz);
+    bool isCrossing(Position C, int sz, int **map);
 
 };
 
