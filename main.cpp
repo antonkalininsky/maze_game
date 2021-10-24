@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    int mapSize = 30;
+    int mapSize = 80;
 
     Game game(mapSize);
 
@@ -35,13 +35,13 @@ int main(int argc, char *argv[])
     }
 
 
-    Board *board = new Board(30, mapSize, game.getMap());
+    Board *board = new Board(12, mapSize, game.getMap());
 
 
     // the window
     QMainWindow window;
-    window.resize(1000,1000);
-    window.setFixedSize(1000,1000);
+    window.resize(1200,1200);
+    window.setFixedSize(1200,1200);
 
     // view
     QGraphicsView * view = new QGraphicsView(board);

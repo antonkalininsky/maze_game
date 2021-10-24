@@ -17,7 +17,8 @@ private:
     int **map;
     int size;
     void mapFiller(std::vector<Position> way, int start = 1);
-    int countNeighbors(int i, int l);
+    std::vector<Position> findNeighbors(Position p);
+    Position unpackNeighbor(int num, Position ps);
 };
 
 #endif // MAPCREATOR_H

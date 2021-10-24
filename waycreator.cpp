@@ -20,7 +20,7 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable, int
     checkedOpt.clear();
     isRnd = true;
 
-
+    int waySz = 40;
 
     while (true) {
         // search for random and unused option
@@ -97,6 +97,10 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable, int
             // switch rnd mode
             if (isEndable) {
                 isRnd = !isRnd;
+            } else {
+                if (way.size() >= waySz) {
+                    //return;
+                }
             }
         }
     }

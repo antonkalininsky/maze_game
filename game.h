@@ -16,7 +16,6 @@ private:
     Position sPos,ePos,cPos;
     int** map;
     int mapSize;
-    void createDisturbances();
 };
 
 #endif // GAME_H
