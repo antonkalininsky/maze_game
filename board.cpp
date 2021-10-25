@@ -3,6 +3,7 @@
 #include <QGraphicsTextItem>
 #include <QString>
 #include <QPen>
+#include <QBrush>
 #include <QGraphicsLineItem>
 #include "position.h"
 #include <vector>
@@ -19,18 +20,40 @@ Board::Board(int rectSz, int mapSz, int **map) {
     pen2.setStyle(Qt::SolidLine);
     pen2.setWidth(3);
 
-    // start n finish
+    QPen pen3;
+    pen3.setColor(Qt::white);
+    pen3.setStyle(Qt::SolidLine);
+    pen3.setWidth(0);
+
+    QBrush brush;
+    brush.setColor(Qt::gray);
+    brush.setStyle(Qt::SolidPattern);
+
+
+    // start n finish names
     QString str = "START";
     QGraphicsTextItem* num = new QGraphicsTextItem();
     num->setPlainText(str);
-    num->setPos(0,-20);
+    num->setPos(0,-1*rectSz);
     addItem(num);
     str = "END";
     num = new QGraphicsTextItem();
     num->setPlainText(str);
-    num->setPos(rectSz*(mapSz-1), rectSz*(mapSz-1)+10);
+    num->setPos(rectSz*(mapSz-1), rectSz*(mapSz));
     addItem(num);
+    // start n finish tiles
+    QGraphicsRectItem* tile = new QGraphicsRectItem();
+    tile->setRect(0, 0, rectSz, rectSz);
+    tile->setPen(pen3);
+    tile->setBrush(brush);
+    addItem(tile);
+    tile = new QGraphicsRectItem();
 
+    tile->setRect(0, 0, rectSz, rectSz);
+    tile->setPos(tile->x() + rectSz*(mapSz-1), tile->x() + rectSz*(mapSz-1));
+    tile->setPen(pen3);
+    tile->setBrush(brush);
+    addItem(tile);
 
 /*
     // draw squares n numbers
