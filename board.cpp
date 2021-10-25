@@ -55,7 +55,7 @@ Board::Board(int rectSz, int mapSz, int **map) {
     tile->setBrush(brush);
     addItem(tile);
 
-/*
+    /*
     // draw squares n numbers
     for (int i = 0; i < mapSz; i++) {
         for (int l = 0; l < mapSz; l++) {
@@ -151,5 +151,6 @@ Board::Board(int rectSz, int mapSz, int **map) {
         }
     }
 }
+
 
 

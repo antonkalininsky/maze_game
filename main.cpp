@@ -19,27 +19,25 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    int mapSize = 50;
-
-    Game game(mapSize);
-
-    int map[mapSize][mapSize];
-
-    for (int i = 0; i < mapSize; i ++) {
-        for (int l = 0; l < mapSize; l ++) {
-            map[i][l] = game.getMap()[i][l];
-        }
-
-    }
-
-
-    Board *board = new Board(20, mapSize, game.getMap());
-
-
     // the window
     QMainWindow window;
     window.resize(1200,1200);
     window.setFixedSize(1200,1200);
+
+    // params
+    int mapSize = 50;
+    int rectSz = 20;
+
+    // the game
+    Game game(mapSize);
+
+    // draw board
+    Board *board = new Board(rectSz, mapSize, game.getMap());
+    // put player
+    Tile *tile = new Tile(rectSz);
+    tile->setFlag(QGraphicsItem::ItemIsFocusable);
+    tile->setFocus();
+    board->addItem(tile);
 
     // view
     QGraphicsView * view = new QGraphicsView(board);
