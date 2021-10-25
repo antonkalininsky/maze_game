@@ -23,12 +23,12 @@ Board::Board(int rectSz, int mapSz, int **map) {
     QString str = "START";
     QGraphicsTextItem* num = new QGraphicsTextItem();
     num->setPlainText(str);
-    num->setPos(0,0);
+    num->setPos(0,-20);
     addItem(num);
     str = "END";
     num = new QGraphicsTextItem();
     num->setPlainText(str);
-    num->setPos(rectSz*(mapSz-1), rectSz*(mapSz-1));
+    num->setPos(rectSz*(mapSz-1), rectSz*(mapSz-1)+10);
     addItem(num);
 
 

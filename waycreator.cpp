@@ -97,10 +97,6 @@ WayCreator::WayCreator(Position sPos, Position ePos, int sz, bool isEndable, int
             // switch rnd mode
             if (isEndable) {
                 isRnd = !isRnd;
-            } else {
-                if (way.size() >= waySz) {
-                    //return;
-                }
             }
         }
     }

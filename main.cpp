@@ -15,13 +15,11 @@
 #include <QGraphicsScene>
 #include <QMainWindow>
 
-//using namespace std;
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    int mapSize = 80;
+    int mapSize = 50;
 
     Game game(mapSize);
 
@@ -35,7 +33,7 @@ int main(int argc, char *argv[])
     }
 
 
-    Board *board = new Board(12, mapSize, game.getMap());
+    Board *board = new Board(20, mapSize, game.getMap());
 
 
     // the window
